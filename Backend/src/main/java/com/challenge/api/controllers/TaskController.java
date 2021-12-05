@@ -50,4 +50,13 @@ public class TaskController {
                 .collect(Collectors.toList());
         return tasks.isEmpty() ? ResponseEntity.status(HttpStatus.NO_CONTENT).body(tasks) : ResponseEntity.ok(tasks);
     }
+
+    @RequestMapping(params="folder", method = RequestMethod.GET)
+    public ResponseEntity<List<TaskDto>> getCharactersByIdMovie(@RequestParam(value = "folder") Integer folder) throws NotFoundException {
+        List<TaskDto> tasks = taskService.getAllByFolderId(folder)
+                .stream()
+                .map(TaskDto::new)
+                .collect(Collectors.toList());
+        return tasks.isEmpty() ? ResponseEntity.status(HttpStatus.NO_CONTENT).body(tasks) : ResponseEntity.ok(tasks);
+    }
 }

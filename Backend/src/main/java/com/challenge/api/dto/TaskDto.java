@@ -7,8 +7,10 @@ import lombok.Data;
 public class TaskDto {
 
     private String description;
+    private Boolean checked;
 
     public TaskDto(Task task) {
         this.description = task.getDescription();
+        this.checked = task.getChecked();
     }
 }
