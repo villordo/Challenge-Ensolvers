@@ -1,4 +1,4 @@
-package com.challenge.exceptions;
+package com.challenge.api.exceptions;
 
 
 public class NotFoundException extends Exception{

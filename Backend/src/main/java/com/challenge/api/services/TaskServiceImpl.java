@@ -3,8 +3,8 @@ package com.challenge.api.services;
 import com.challenge.api.models.Task;
 import com.challenge.api.repositories.TaskRepository;
 import com.challenge.api.services.interfaces.ITaskService;
-import com.challenge.exceptions.AlreadyExistsException;
-import com.challenge.exceptions.NotFoundException;
+import com.challenge.api.exceptions.AlreadyExistsException;
+import com.challenge.api.exceptions.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

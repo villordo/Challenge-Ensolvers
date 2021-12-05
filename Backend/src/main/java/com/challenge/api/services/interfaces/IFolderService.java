@@ -1,8 +1,8 @@
 package com.challenge.api.services.interfaces;
 
 import com.challenge.api.models.Folder;
-import com.challenge.exceptions.AlreadyExistsException;
-import com.challenge.exceptions.NotFoundException;
+import com.challenge.api.exceptions.AlreadyExistsException;
+import com.challenge.api.exceptions.NotFoundException;
 
 import java.util.List;
 
