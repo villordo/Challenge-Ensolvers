@@ -1,6 +1,7 @@
 package com.challenge.api.services;
 
 import com.challenge.api.models.Task;
+import com.challenge.api.repositories.FolderRepository;
 import com.challenge.api.repositories.TaskRepository;
 import com.challenge.api.services.interfaces.ITaskService;
 import com.challenge.api.exceptions.AlreadyExistsException;
@@ -16,9 +17,19 @@ public class TaskServiceImpl implements ITaskService {
     @Autowired
     TaskRepository taskRepository;
 
+    @Autowired
+    FolderRepository folderRepository;
+
     @Override
     public List<Task> getAll() {
         return taskRepository.findAll();
+    }
+
+    @Override
+    public List<Task> getAllByFolderId(Integer idFolder) throws NotFoundException {
+        folderRepository.findById(idFolder)
+                .orElseThrow(() -> new NotFoundException("Folder doesn't exists."));
+        return taskRepository.findAllByFolderId(idFolder);
     }
 
     @Override
