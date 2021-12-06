@@ -1,6 +1,7 @@
 package com.challenge.api.controllers;
 
 import com.challenge.api.dto.TaskDto;
+import com.challenge.api.dto.TaskRequestDto;
 import com.challenge.api.models.Task;
 import com.challenge.api.services.interfaces.ITaskService;
 import com.challenge.api.exceptions.AlreadyExistsException;
@@ -15,6 +16,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/tasks")
+@CrossOrigin(origins = "*", methods= {RequestMethod.DELETE,RequestMethod.GET,RequestMethod.POST,RequestMethod.PUT})
 public class TaskController {
 
     @Autowired
@@ -52,7 +54,7 @@ public class TaskController {
     }
 
     @RequestMapping(params="folder", method = RequestMethod.GET)
-    public ResponseEntity<List<TaskDto>> getCharactersByIdMovie(@RequestParam(value = "folder") Integer folder) throws NotFoundException {
+    public ResponseEntity<List<TaskDto>> getTasksByFolder(@RequestParam(value = "folder") Integer folder) throws NotFoundException {
         List<TaskDto> tasks = taskService.getAllByFolderId(folder)
                 .stream()
                 .map(TaskDto::new)

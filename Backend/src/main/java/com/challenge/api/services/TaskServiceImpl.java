@@ -1,5 +1,6 @@
 package com.challenge.api.services;
 
+import com.challenge.api.dto.TaskRequestDto;
 import com.challenge.api.models.Task;
 import com.challenge.api.repositories.FolderRepository;
 import com.challenge.api.repositories.TaskRepository;
@@ -43,6 +44,7 @@ public class TaskServiceImpl implements ITaskService {
         if(taskRepository.findByDescription(task.getDescription()).isPresent()){
             throw new AlreadyExistsException("The task description already exists.");
         }
+        //Task toSave =  Task.buildTask(task);
         return taskRepository.save(task);
     }
 
