@@ -1,5 +1,6 @@
 package com.challenge.api.services.interfaces;
 
+import com.challenge.api.dto.TaskRequestDto;
 import com.challenge.api.models.Task;
 import com.challenge.api.exceptions.AlreadyExistsException;
 import com.challenge.api.exceptions.NotFoundException;
