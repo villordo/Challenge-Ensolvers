@@ -1,19 +1,29 @@
-import { React, useEffect, useState } from 'react';
+import { React, useEffect, useState, useContext } from 'react';
 import { useParams } from 'react-router';
 import Axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { AuthContext } from '../contexts/Auth.jsx';
+
 
 const EditTask = () => {
+    const { loggedUser } = useContext(AuthContext);
     const [taskDescription, setTaskDescription] = useState('');
     const [task, setTask] = useState({});
     const navigate = useNavigate();
 
-    const { idTask,idFolder } = useParams();
+    const { idTask, idFolder } = useParams();
 
 
     useEffect(() => {
-        getTasksById();
+        if (!loggedUser) {
+            navigate('/logout');
+        }
+        else {
+            getTasksById();
+        }
+
     }, [])
+
 
     const getTasksById = () => {
 
@@ -29,37 +39,35 @@ const EditTask = () => {
 
     function saveTask() {
         let descripAux = null;
-        if(taskDescription === ''){
+        if (taskDescription === '') {
             descripAux = task.description;
         }
-        //console.log(taskDescription);
         const taskEdited = {
             id: idTask,
-            description: (descripAux !== null)? descripAux : taskDescription,
+            description: (descripAux !== null) ? descripAux : taskDescription,
             checked: task.checked,
             folder: {
-              id: idFolder
+                id: idFolder
             }
-          }
-      
-          try {
-            Axios.put(`http://localhost:8080/tasks/`, taskEdited)
-              .then((resp => {
-                console.log(resp);
-                navigate(`/tasks/${idFolder}`)
+        }
 
-              }))
-          } catch (e) { console.log(e); }
+        try {
+            Axios.put(`http://localhost:8080/tasks/`, taskEdited)
+                .then((resp => {
+                    navigate(`/tasks/${idFolder}`)
+
+                }))
+        } catch (e) { console.log(e); }
     }
 
-    function goBack(){
+    function goBack() {
         navigate(`/tasks/${idFolder}`)
     }
 
     return (
         <div className="container m-5 p-2 rounded mx-auto bg-light shadow">
 
-        <a onClick={() => goBack()} className="link-danger btn" ><i class="far fa-arrow-alt-circle-left "></i> Go Back</a>
+            <a onClick={() => goBack()} className="link-danger btn" ><i class="far fa-arrow-alt-circle-left "></i> Go Back</a>
 
             <div className="row m-1 p-4">
                 <div className="col">

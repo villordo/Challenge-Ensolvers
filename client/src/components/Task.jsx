@@ -1,11 +1,13 @@
-import { React, useEffect, useState } from 'react';
+import { React, useEffect, useState, useContext } from 'react';
 import { useParams } from 'react-router';
 import { useNavigate } from 'react-router-dom';
 import Axios from 'axios';
 import '../../src/css/TaskTest.css';
+import { AuthContext } from '../contexts/Auth.jsx';
 
 
 const Tasks = () => {
+  const { loggedUser } = useContext(AuthContext);
   const [tasksList, setTasksList] = useState([]);
   const [description, setDescription] = useState('');
   const navigate = useNavigate();
@@ -14,7 +16,13 @@ const Tasks = () => {
 
 
   useEffect(() => {
+    if (!loggedUser) {
+      navigate('/logout');
+  }
+  else {
     getTasksByFolder();
+  }
+    
   }, [])
 
   const getTasksByFolder = () => {
@@ -38,7 +46,6 @@ const Tasks = () => {
     try {
       Axios.delete(`http://localhost:8080/tasks/${id}`)
         .then((resp => {
-          console.log(resp);
           getTasksByFolder();
         }))
     } catch (e) { console.log(e); }
