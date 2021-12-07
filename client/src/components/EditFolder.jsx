@@ -1,9 +1,12 @@
-import { React, useEffect, useState } from 'react';
+import { React, useEffect, useState, useContext } from 'react';
 import { useParams } from 'react-router';
 import Axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { AuthContext } from '../contexts/Auth.jsx';
+
 
 const EditFolder = () => {
+    const { loggedUser } = useContext(AuthContext);
     const [folderName, setFolderName] = useState('');
     const [folder, setFolder] = useState({});
     const navigate = useNavigate();
@@ -12,7 +15,13 @@ const EditFolder = () => {
 
 
     useEffect(() => {
-        getFolderById();
+        if (!loggedUser) {
+            navigate('/logout');
+        }
+        else {
+            getFolderById();
+        }
+        
     }, [])
 
     const getFolderById = () => {
@@ -41,7 +50,6 @@ const EditFolder = () => {
           try {
             Axios.put(`http://localhost:8080/folders/`, folderEdited)
               .then((resp => {
-                console.log(resp);
                 navigate(`/folders`);
 
               }))
