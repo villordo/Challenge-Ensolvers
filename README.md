@@ -21,5 +21,5 @@ The proyect is a Todo-list app.
 
 
 ### Authors ✒️
-
 * **Jorge Villordo** 
+
