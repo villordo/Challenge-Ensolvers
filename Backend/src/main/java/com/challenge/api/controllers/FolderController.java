@@ -38,7 +38,7 @@ public class FolderController {
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 
-    @PostMapping("/")ahre
+    @PostMapping("/")ahreasd
     public ResponseEntity addFolder(@RequestBody Folder folder) throws AlreadyExistsException {
         return new ResponseEntity<>(folderService.addFolder(folder), HttpStatus.CREATED);
     }
